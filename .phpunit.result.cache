@@ -1,0 +1,1 @@
+{"version":1,"defects":{"MedicationTest::testCreateMedication":4,"MedicationTest::testReadMedications":4,"MedicationTest::testUpdateMedication":4,"MedicationTest::testDeleteMedication":4},"times":{"MedicationTest::testCreateMedication":0.003,"MedicationTest::testReadMedications":0,"MedicationTest::testUpdateMedication":0,"MedicationTest::testDeleteMedication":0}}

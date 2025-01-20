@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Medication Management API
+  description: API to manage medications in an eHealth platform.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Local server
+paths:
+  /medications:
+    post:
+      summary: Add a new medication
+      description: Creates a new medication record for a user.
+      operationId: createMedication
+      requestBody:
+        description: Medication object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: User ID to whom the medication belongs
+                name:
+                  type: string
+                  maxLength: 100
+                  description: Name of the medication
+                started_at:
+                  type: string
+                  format: date-time
+                  description: The start date for taking the medication
+                dosage:
+                  type: integer
+                  description: Dosage of the medication
+                note:
+                  type: string
+                  maxLength: 500
+                  description: Additional notes (optional)
+      responses:
+        '200':
+          description: Medication created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Medication created successfully"
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /medications/{id}:
+    get:
+      summary: Retrieve a specific medication by ID
+      description: Retrieve the medication details for a specific user.
+      operationId: getMedication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medication ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Medication retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Medication ID
+                  user_id:
+                    type: integer
+                    description: User ID
+                  name:
+                    type: string
+                    description: Name of the medication
+                  started_at:
+                    type: string
+                    format: date-time
+                    description: The start date for taking the medication
+                  dosage:
+                    type: integer
+                    description: Dosage of the medication
+                  note:
+                    type: string
+                    description: Additional notes
+        '404':
+          description: Medication not found
+        '500':
+          description: Server error
+
+    put:
+      summary: Update an existing medication
+      description: Update the medication details.
+      operationId: updateMedication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medication ID
+          schema:
+            type: integer
+      requestBody:
+        description: Medication object to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  description: Name of the medication
+                started_at:
+                  type: string
+                  format: date-time
+                  description: The start date for taking the medication
+                dosage:
+                  type: integer
+                  description: Dosage of the medication
+                note:
+                  type: string
+                  maxLength: 500
+                  description: Additional notes (optional)
+      responses:
+        '200':
+          description: Medication updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Medication updated successfully"
+        '400':
+          description: Invalid input
+        '404':
+          description: Medication not found
+        '500':
+          description: Server error
+
+    delete:
+      summary: Delete a medication by ID
+      description: Delete the specified medication.
+      operationId: deleteMedication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medication ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Medication deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Medication deleted successfully"
+        '404':
+          description: Medication not found
+        '500':
+          description: Server error
